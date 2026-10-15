@@ -11,7 +11,7 @@ public class member {
 
 
     // List of borrowed items
-    private List<libraryItem> borrowedItems;
+    private List<Book> borrowedItems;
 
     // Default Constructor
     public member() {
@@ -19,10 +19,9 @@ public class member {
     }
 
     // Parameterized Constructor
-    public member(int id, String name, String email) {
+    public member( String name, String email) {
         ValidateEmail(email);
 
-        this.id = id;
         this.name = name;
         this.email = email;
 
@@ -59,12 +58,12 @@ public class member {
 
 
     // Get borrowed items
-    public List<libraryItem> getBorrowedItems() {
+    public List<Book> getBorrowedItems() {
         return new ArrayList<>(borrowedItems);
     }
 
     // Add borrowed item
-    public void addBorrowedItem(libraryItem item) {
+    public void addBorrowedItem(Book item) {
         if (item == null) {
             throw new IllegalArgumentException("Item cannot be null");
         }
@@ -82,7 +81,7 @@ public class member {
     }
 
     // Return borrowed item
-    public void returnBorrowedItem(libraryItem item) {
+    public void returnBorrowedItem(Book item) {
 
         if (!borrowedItems.contains(item)) {
             throw new IllegalArgumentException(

@@ -1,6 +1,6 @@
 package Hcl_Assessment_2_CoreJava2300320100037_Anshu_Raj.model;
 
-public class magazine extends libraryItem {
+public class magazine extends Book {
 
     private int magazineId;
     private String title;

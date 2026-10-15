@@ -31,8 +31,7 @@ public class EmployeeOperation {
         list.add(new Employee("Karan", 32, 6200.00));
         list.add(new Employee("Pooja", 29, 4800.00));
         list.add(new Employee("Arjun", 31, 5800.00));
-        ArrayList<Employee> result =      list.stream().filter(x->x.Salary>5000)
-                .collect(Collectors.toCollection());
+
     }
 
 

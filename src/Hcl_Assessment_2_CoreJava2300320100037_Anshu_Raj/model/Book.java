@@ -1,34 +1,119 @@
 package Hcl_Assessment_2_CoreJava2300320100037_Anshu_Raj.model;
 
-public class Book extends libraryItem {
-    public  String tite;
-    public  String name;
-    public double price;
-    public  String author;
-    @Override
-    public double lateFee(int daysLate) {
-        return Math.max(0, daysLate) * 2;
-    }
-    public Book(String tite, String name, String author) {
-        this.tite = tite;
-        this.name = name;
-        this.author = author;
-    }
-    public String getTire() {
-        return tite;
-    }
-    public void setTite(String tite) {}
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {}
-    public String getAuthor() {
-        return author;
-    }
-    public void setAuthor(String author) {}
-    public double getPrice() {
-        return price;
-    }
-    public void setPrice(double price) {}
-}
+import java.time.Year;
 
+public  class Book implements Borrowable {
+
+    private static int counter = 1001;
+
+    private final int id;
+    private String title;
+    private int year;
+    private boolean available;
+
+    // Default Constructor
+    public Book() {
+        this.id = counter++;
+        this.available = true;
+    }
+
+    // Parameterized Constructor
+    public Book(String title, int year, boolean available) {
+
+        validateTitle(title);
+        validateYear(year);
+
+        this.id = counter++;
+        this.title = title;
+        this.year = year;
+        this.available = available;
+    }
+
+    // Abstract Method
+
+    // Validation Methods
+    private void validateTitle(String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Title must not be blank"
+            );
+        }
+    }
+
+    private void validateYear(int year) {
+        int currentYear = Year.now().getValue();
+
+        if (year < 1900 || year > currentYear) {
+            throw new IllegalArgumentException(
+                    "Year must be between 1900 and " + currentYear
+            );
+        }
+    }
+
+    // Getters
+    public int getItemId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getPublicationYear() {
+        return year;
+    }
+
+    @Override
+    public boolean isAvailable() {
+        return available;
+    }
+
+    // Borrowable Interface Methods
+
+    @Override
+    public void borrow() {
+        if (available) {
+            available = false;
+
+            System.out.println(title + " borrowed successfully");
+        } else {
+            System.out.println(title + " is already borrowed");
+        }
+    }
+
+    @Override
+    public void giveBack() {
+        if (!available) {
+            available = true;
+            System.out.println(title + " returned successfully");
+        } else {
+            System.out.println(title + " is already available");
+        }
+    }
+
+    // Setters
+    public void setTitle(String title) {
+        validateTitle(title);
+        this.title = title;
+    }
+
+    public void setPublicationYear(int year) {
+        validateYear(year);
+        this.year = year;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+
+    @Override
+    public String toString() {
+        return "LibraryItem{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", year=" + year +
+                ", available=" + available +
+                '}';
+    }
+}
