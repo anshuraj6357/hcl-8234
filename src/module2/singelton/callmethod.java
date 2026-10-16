@@ -1,4 +1,4 @@
-package module2;
+package module2.singelton;
 
 public class callmethod {
     public static void main(String[] args) {
