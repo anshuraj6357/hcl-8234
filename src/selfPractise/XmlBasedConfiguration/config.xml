@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+
+    <bean class="selfPractise.XmlBasedConfiguration.pom.course" name="coursefield">
+        <property name="courseName">
+            <value>Radha Rani</value>
+        </property>
+        <property name="courseID">
+            <value>1234</value>
+        </property>
+        <property name="courseDescription">
+            <value>This Is The Course Description</value>
+        </property>
+        <property name="courseType">
+            <value>This Is The Course Type</value>
+        </property>
+    </bean>
+
+
+    <bean class="selfPractise.XmlBasedConfiguration.pom.employee" name="EmployeeField">
+        <property name="name">
+            <value>This is the Employee name</value>
+        </property>
+        <property name="salary">
+            <value>This is the Employee salary</value>
+        </property>
+        <property name="age">
+            <value>This is the Employee age</value>
+        </property>
+    </bean>
+
+</beans>
