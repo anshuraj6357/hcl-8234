@@ -2,7 +2,10 @@ package HRMS.hrms.mapper;
 
 import HRMS.hrms.dto.userDto;
 import HRMS.hrms.model.userModel;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class userMapper {
     public userDto toEntity(userModel user){
         userDto userdto = new userDto();

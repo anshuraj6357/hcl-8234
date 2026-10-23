@@ -30,7 +30,7 @@ public class globalException {
 
     @ExceptionHandler(userNotCreated.class)
     public ResponseEntity<String> handleUserNotCreated(
-            userNotFOundException ex){
+            userNotCreated ex){
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
