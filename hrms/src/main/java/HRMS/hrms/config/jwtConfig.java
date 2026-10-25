@@ -1,12 +1,10 @@
 package HRMS.hrms.config;
 
 
-import HRMS.hrms.model.userModel;
+import HRMS.hrms.auth.model.authModel;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,7 +17,7 @@ public class jwtConfig {
     @Value("${jwt.secret}")
     private String secret;
 
-    public String generateAccessToken(userModel user) {
+    public String generateAccessToken(authModel user) {
         // Implementation for generating access token
         return Jwts.builder()
                 .setSubject(
