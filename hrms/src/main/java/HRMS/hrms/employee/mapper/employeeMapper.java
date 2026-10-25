@@ -1,5 +1,5 @@
 
-package HRMS.hrms.employee.exception.mapper;
+package HRMS.hrms.employee.mapper;
 
 import HRMS.hrms.employee.dto.employeeDto;
 import HRMS.hrms.employee.model.employeeModel;

@@ -1,8 +1,8 @@
 package HRMS.hrms.employee.service;
 
 import HRMS.hrms.employee.dto.employeeDto;
-import HRMS.hrms.employee.exception.employee.employeeNotFound;
-import HRMS.hrms.employee.exception.mapper.employeeMapper;
+import HRMS.hrms.employee.exception.employeeNotFound;
+import HRMS.hrms.employee.mapper.employeeMapper;
 import HRMS.hrms.employee.model.employeeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import HRMS.hrms.employee.repository.employeeRepo;

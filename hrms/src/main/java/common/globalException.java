@@ -1,4 +1,4 @@
-package HRMS.hrms.organisation.company;
+package common;
 
 
 import HRMS.hrms.organisation.company.exception.companyNotCreatedException;
@@ -10,11 +10,5 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class globalException {
 
-    @ExceptionHandler(companyNotCreatedException.class)
-    public ResponseEntity<String> globalcomapnyNotCreatedException(companyNotCreatedException ex){
 
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ex.getMessage());
-    }
 }

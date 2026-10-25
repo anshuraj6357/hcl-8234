@@ -2,7 +2,7 @@
 package HRMS.hrms.employee.controller;
 
 import HRMS.hrms.employee.dto.employeeDto;
-import HRMS.hrms.employee.exception.employee.employeeNotFound;
+import HRMS.hrms.employee.exception.employeeNotFound;
 import HRMS.hrms.employee.service.employeeServiceImpl;
 
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package HRMS.hrms.employee.exception.employee;
+package HRMS.hrms.employee.exception;
 
 
 

@@ -24,12 +24,12 @@ public class companyController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteCompany(@PathVariable Integer id){
+    public ResponseEntity<String> deleteCompany(@PathVariable Long id){
         companyServiceImpl.deleteCompany(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Comapny Deleted Successfully");
     }
     @PatchMapping("/update")
-    public ResponseEntity<String> updateCompany(@PathVariable Integer Id,@RequestBody companyRequestDto company){
+    public ResponseEntity<String> updateCompany(@PathVariable Long Id,@RequestBody companyRequestDto company){
         companyServiceImpl.updateCompany(Id,company);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Comapny Updated Successfully");
     }

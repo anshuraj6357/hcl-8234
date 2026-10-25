@@ -1,14 +1,20 @@
 package payroll.employeeSalary.mapper;
 
+import org.springframework.stereotype.Component;
 import payroll.employeeSalary.dto.employeeSalaryRequestDto;
 import payroll.employeeSalary.model.employeeSalaryModel;
 
+
+
+
+
+@Component
 public class employeeSalaryToEntityMapper {
 
 
 
     // Request DTO ko Model mein convert karna
-    public static employeeSalaryModel toModel(
+    public  employeeSalaryModel toEntity(
             employeeSalaryRequestDto dto) {
 
         employeeSalaryModel model =

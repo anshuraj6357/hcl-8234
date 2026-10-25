@@ -1,7 +1,7 @@
 package HRMS.hrms.employee.service;
 
 import HRMS.hrms.employee.dto.employeeDto;
-import HRMS.hrms.employee.exception.employee.employeeNotFound;
+import HRMS.hrms.employee.exception.employeeNotFound;
 
 import java.util.List;
 

@@ -2,7 +2,10 @@ package HRMS.hrms.organisation.company.mapper;
 
 import HRMS.hrms.organisation.company.dto.companyResponseDto;
 import HRMS.hrms.organisation.company.model.companyModel;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class companyToDtoMapper {
 
     public companyResponseDto toDto(companyModel company){

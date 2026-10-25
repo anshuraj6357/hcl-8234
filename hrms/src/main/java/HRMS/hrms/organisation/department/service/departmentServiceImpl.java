@@ -11,9 +11,11 @@ import HRMS.hrms.organisation.department.mapper.departmentToEntityMapper;
 import HRMS.hrms.organisation.department.model.departmentModel;
 import HRMS.hrms.organisation.department.repository.departmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class departmentServiceImpl implements departmentService {
 
     @Autowired
@@ -71,7 +73,7 @@ public class departmentServiceImpl implements departmentService {
             );
         }
 
-        return departmentRepo.findByCompany_Company_Id(companyId)
+        return departmentRepo.findDepartmentsByCompanyId(companyId)
                 .stream()
                 .map(departmentToDtoMapper::departmentToDto)
                 .toList();

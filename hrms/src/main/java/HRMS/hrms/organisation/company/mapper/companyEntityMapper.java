@@ -2,7 +2,10 @@ package HRMS.hrms.organisation.company.mapper;
 
 import HRMS.hrms.organisation.company.dto.companyRequestDto;
 import HRMS.hrms.organisation.company.model.companyModel;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class companyEntityMapper {
 
     public companyModel toEntity(companyRequestDto company){

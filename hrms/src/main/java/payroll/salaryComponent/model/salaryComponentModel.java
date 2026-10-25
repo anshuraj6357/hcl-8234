@@ -3,6 +3,8 @@ package payroll.salaryComponent.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import payroll.salaryComponent.enums.salaryComponentType;
+import payroll.salaryComponent.enums.salaryComponentCalculationType;
 
 @Entity
 @Table(name = "salary_components")
@@ -20,13 +22,13 @@ public class salaryComponentModel {
     @Column(nullable = false)
     private String salaryComponent_Name;
 
-    // EARNING or DEDUCTION
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String salaryComponent_Type;
+    private salaryComponentType salaryComponent_Type;
 
-    // FIXED or PERCENTAGE
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String salaryComponent_CalculationType;
+    private salaryComponentCalculationType salaryComponent_CalculationType;
 
     private Double salaryComponent_Value;
 

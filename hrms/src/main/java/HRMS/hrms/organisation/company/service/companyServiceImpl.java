@@ -24,6 +24,9 @@ public class companyServiceImpl implements companyService {
     private companyToUpdateMapper companyToUpdateMapper;
 
     public companyResponseDto createCompany(companyRequestDto company)throws companyNotCreatedException {
+
+
+
         try{
 
             companyModel createCompany = companyEntityMapper.toEntity(company);
@@ -40,8 +43,23 @@ public class companyServiceImpl implements companyService {
 
     }
 
+    @Override
+    public companyResponseDto getCompanyById(Integer id) {
+        return null;
+    }
 
-//    public List<companyResponseDto> getAllCompanies(){
+    @Override
+    public companyResponseDto updateCompany(Integer id, companyRequestDto company) {
+        return null;
+    }
+
+    @Override
+    public void deleteCompany(Integer id) {
+
+    }
+
+
+    //    public List<companyResponseDto> getAllCompanies(){
 //
 //        return null;
 //    }

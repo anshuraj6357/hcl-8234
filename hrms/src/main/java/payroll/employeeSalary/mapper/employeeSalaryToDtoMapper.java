@@ -1,15 +1,18 @@
 
 package payroll.employeeSalary.mapper;
 
+import org.springframework.stereotype.Component;
 import payroll.employeeSalary.dto.employeeSalaryRequestDto;
 import payroll.employeeSalary.dto.employeeSalaryResponseDto;
 import payroll.employeeSalary.model.employeeSalaryModel;
 import payroll.salarystructure.model.salaryStructureModel;
 
+
+@Component
 public class employeeSalaryToDtoMapper {
 
     // Model -> Response DTO
-    public static employeeSalaryResponseDto toDto(
+    public  employeeSalaryResponseDto toDto(
             employeeSalaryModel model) {
 
         employeeSalaryResponseDto dto =
