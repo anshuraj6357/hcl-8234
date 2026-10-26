@@ -49,7 +49,7 @@ public class departmentServiceImpl implements departmentService {
                 .toList();
     }
 
-    public void deleteDepartment(Integer id) {
+    public void deleteDepartment(Long id) {
         departmentModel departmentModel=departmentRepo.findById(id).orElseThrow(()->
                 new departmentNotFoundException("Department not found with this id "));
 

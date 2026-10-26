@@ -1,6 +1,7 @@
 
 package HRMS.hrms.organisation.company.dto;
 
+import HRMS.hrms.organisation.location.model.locationModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ public class companyResponseDto {
 
     private String company_Name;
     private String company_Code;
-    private String company_Address;
+    private locationModel location_id;
     private String company_Email;
     private String company_Phone;
 

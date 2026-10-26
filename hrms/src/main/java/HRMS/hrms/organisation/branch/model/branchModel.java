@@ -18,6 +18,7 @@ import lombok.Setter;
 )
 @Getter
 @Setter
+
 public class branchModel {
 
     @Id
@@ -47,5 +48,5 @@ public class branchModel {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "company_id", nullable = false)
-    private companyModel company;
+    private companyModel company_Id;
 }

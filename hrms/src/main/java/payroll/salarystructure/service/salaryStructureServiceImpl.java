@@ -5,10 +5,12 @@ import HRMS.hrms.employee.model.employeeModel;
 import HRMS.hrms.employee.repository.employeeRepo;
 import HRMS.hrms.organisation.branch.model.branchModel;
 import HRMS.hrms.organisation.branch.repository.branchRepo;
+import HRMS.hrms.organisation.department.repository.departmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import payroll.salarystructure.dto.salaryStructureRequestDto;
 import payroll.salarystructure.dto.salaryStructureResponseDto;
+import payroll.salarystructure.mapper.salaryStructureToUpdateEntityMapper;
 import payroll.salarystructure.mapper.salaryStructureToDtoMapper;
 import payroll.salarystructure.mapper.salaryStructureToEntityMapper;
 import payroll.salarystructure.model.salaryStructureModel;
@@ -21,11 +23,12 @@ public class salaryStructureServiceImpl implements salaryStructureService {
 
 
     @Autowired
-    private branchModel branchModel;
     private branchRepo branchRepo;
     private employeeModel employeeModel;
     private employeeRepo employeeRepo;
     private salaryStructureRepository salaryStructureRepository;
+    private departmentRepo departmentRepository;
+    private salaryStructureToUpdateEntityMapper salaryStructureToUpdateEntityMapper;
 
 
     @Override
@@ -72,25 +75,86 @@ public class salaryStructureServiceImpl implements salaryStructureService {
 
 
 
-    public List<salaryStructureResponseDto> getAllSalaryStructuresByCompany(
-            Long companyId
+    public List<salaryStructureResponseDto> getAllSalaryStructuresByBranch(
+            Long branchId
     ){
-        return null;
+
+
+
+        List<salaryStructureModel> allSalaryStructures=salaryStructureRepository.findAll().
+                stream().filter(
+                        salaryStructureModel ->
+                                salaryStructureModel.getBranch_Id() != null
+                                        &&
+                                salaryStructureModel.getBranch_Id().equals(branchId)
+                )
+                .toList();
+
+ return allSalaryStructures.
+         stream().
+         map(salaryStructureToDtoMapper::toDto)
+         .toList();
+
+
     }
 
-    public salaryStructureResponseDto getSalaryStructureById(
-            Long id
-    ){
-        return null;
+
+    @Override
+    public salaryStructureResponseDto getSalaryStructureById(Long id) {
+
+        salaryStructureModel model =
+                salaryStructureRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Salary Structure not found with ID: " + id
+                                )
+                        );
+
+        return salaryStructureToDtoMapper.toDto(model);
     }
+
+
+
+
+    @Override
     public salaryStructureResponseDto updateSalaryStructure(
             Long id,
-            salaryStructureRequestDto request
-    ){
-        return null;
+            salaryStructureRequestDto request) {
+
+        salaryStructureModel model =
+                salaryStructureRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Salary Structure not found with ID: " + id
+                                )
+                        );
+
+        // Update entity using mapper
+        salaryStructureModel updatedModel =
+                salaryStructureToUpdateEntityMapper.toUpdateEntity(
+                        model, request);
+
+        // Save updated entity
+        salaryStructureModel savedModel =
+                salaryStructureRepository.save(updatedModel);
+
+        // Convert entity to response DTO
+        return salaryStructureToDtoMapper.toDto(savedModel);
     }
 
-    public void deleteSalaryStructure(Long id){
 
+    @Override
+    public void deleteSalaryStructure(Long id) {
+
+        salaryStructureModel model =
+                salaryStructureRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Salary Structure not found with ID: " + id
+                                )
+                        );
+
+        salaryStructureRepository.delete(model);
     }
+
 }

@@ -15,7 +15,7 @@ public class companyEntityMapper {
         companymodel.setCompany_Code(company.getCompany_Code());
         companymodel.setCompany_Email(company.getCompany_Email());
         companymodel.setCompany_Phone(company.getCompany_Phone());
-        companymodel.setCompany_Address(company.getCompany_Address());
+        companymodel.setLocation_id(company.getLocation_id());
         companymodel.setCompany_Active(true);
         return companymodel;
     }

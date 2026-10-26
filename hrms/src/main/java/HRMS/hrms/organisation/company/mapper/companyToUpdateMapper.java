@@ -16,8 +16,8 @@ public class companyToUpdateMapper {
             existingCompany.setCompany_Name(dto.getCompany_Name());
         }
 
-        if (dto.getCompany_Address() != null) {
-            existingCompany.setCompany_Address(dto.getCompany_Address());
+        if (dto.getLocation_id()!= null) {
+            existingCompany.setLocation_id(dto.getLocation_id());
         }
 
         if (dto.getCompany_Code() != null) {

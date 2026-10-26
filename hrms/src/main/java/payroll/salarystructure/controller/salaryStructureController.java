@@ -33,14 +33,14 @@ public class salaryStructureController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    // Get All Salary Structures By Company
-    @GetMapping("/company/{companyId}")
+    // Get All Salary Structures By Branch
+    @GetMapping("/branch/{branchId}")
     public ResponseEntity<List<salaryStructureResponseDto>>
-    getAllSalaryStructuresByCompany(@PathVariable Long companyId) {
+    getAllSalaryStructuresByBranch(@PathVariable Long branchId) {
 
         List<salaryStructureResponseDto> response =
                 salaryStructureService
-                        .getAllSalaryStructuresByCompany(companyId);
+                        .getAllSalaryStructuresByBranch(branchId);
 
         return ResponseEntity.ok(response);
     }

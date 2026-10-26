@@ -22,7 +22,7 @@ public interface departmentService {
     );
 
     // Delete department
-    void deleteDepartment(Integer id);
+    void deleteDepartment(Long id);
 
     // Fetch all departments belonging to a company
     List<departmentResponseDto> getDepartmentsByCompanyId(Long companyId);

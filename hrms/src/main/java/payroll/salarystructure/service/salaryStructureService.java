@@ -16,7 +16,7 @@ public interface salaryStructureService {
     );
 
     // Get all salary structures of a company
-    List<salaryStructureResponseDto> getAllSalaryStructuresByCompany(
+    List<salaryStructureResponseDto> getAllSalaryStructuresByBranch(
             Long companyId
     );
 
