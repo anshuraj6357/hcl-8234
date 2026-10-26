@@ -1,5 +1,6 @@
 package payroll.salaryComponent.model;
 
+import HRMS.hrms.organisation.branch.model.branchModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,10 @@ public class salaryComponentModel {
 
     @Column(nullable = false, unique = true)
     private String salaryComponent_Code;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="branch_id")
+    private branchModel branch_Id;
 
     @Column(nullable = false)
     private String salaryComponent_Name;

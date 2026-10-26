@@ -1,6 +1,7 @@
 package payroll.salarystructure.model;
 
 
+import HRMS.hrms.organisation.branch.model.branchModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,10 @@ public class salaryStructureModel {
 
     @Column(nullable = false)
     private Boolean salaryStructure_Active = true;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id")
+    private branchModel branch_Id;
 
     private String salaryStructure_Description;
 }
