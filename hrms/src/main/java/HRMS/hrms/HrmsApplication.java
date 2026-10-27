@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {
         "HRMS.hrms",
-        "payroll"
+        "HRMS/hrms/payroll"
 })
 public class HrmsApplication {
 
