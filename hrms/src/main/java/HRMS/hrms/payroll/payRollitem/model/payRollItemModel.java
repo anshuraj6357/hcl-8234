@@ -1,7 +1,9 @@
 
 package HRMS.hrms.payroll.payRollitem.model;
 
+import HRMS.hrms.employee.model.employeeModel;
 import HRMS.hrms.payroll.payRollRun.model.payrollRunModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +13,7 @@ import java.math.BigDecimal;
 @Table(
         name = "payroll_items",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = {"payroll_run_id", "employeeId"}
+                columnNames = {"payroll_run_id", "employee_id"}
         )
 )
 @Getter
@@ -26,8 +28,15 @@ public class payRollItemModel {
     @JoinColumn(name = "payroll_run_id", nullable = false)
     private payrollRunModel payrollRun;
 
-    @Column(nullable = false)
+    @Column(name = "employee_id", nullable = false)
     private Long employeeId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id",
+            insertable = false, updatable = false,
+            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonIgnore
+    private employeeModel employee;
 
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal payrollItem_GrossSalary;

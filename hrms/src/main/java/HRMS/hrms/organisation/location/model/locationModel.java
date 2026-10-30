@@ -2,6 +2,7 @@
         package HRMS.hrms.organisation.location.model;
 
 import HRMS.hrms.organisation.company.model.companyModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,8 +28,9 @@ public class locationModel {
     private String location_Name;
 
     // Company relation
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "company_id", nullable = false)
+    @JsonIgnore
     private companyModel company_Id;
 
     // Address details

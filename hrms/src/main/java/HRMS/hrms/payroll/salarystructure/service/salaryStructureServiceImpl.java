@@ -1,11 +1,8 @@
 package HRMS.hrms.payroll.salarystructure.service;
 
 
-import HRMS.hrms.employee.model.employeeModel;
-import HRMS.hrms.employee.repository.employeeRepo;
 import HRMS.hrms.organisation.branch.model.branchModel;
 import HRMS.hrms.organisation.branch.repository.branchRepo;
-import HRMS.hrms.organisation.department.repository.departmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import HRMS.hrms.payroll.salarystructure.dto.salaryStructureRequestDto;
@@ -24,11 +21,8 @@ public class salaryStructureServiceImpl implements salaryStructureService {
 
     @Autowired
     private branchRepo branchRepo;
-    private employeeModel employeeModel;
-    private employeeRepo employeeRepo;
+    @Autowired
     private salaryStructureRepository salaryStructureRepository;
-    private departmentRepo departmentRepository;
-    private salaryStructureToUpdateEntityMapper salaryStructureToUpdateEntityMapper;
 
 
     @Override
@@ -38,6 +32,9 @@ public class salaryStructureServiceImpl implements salaryStructureService {
         if (request == null) {
             throw new RuntimeException("Request cannot be null");
         }
+        if (request.getBranch_Id() == null) {
+            throw new RuntimeException("Branch ID is required");
+        }
 
         // Fetch branch from database
         branchModel branch = branchRepo.findById(
@@ -46,21 +43,10 @@ public class salaryStructureServiceImpl implements salaryStructureService {
                 new RuntimeException("Branch not found")
         );
 
-        // Fetch employee from database, if provided
-        employeeModel employee = null;
-
-        if (request.getEmployee_Id() != null) {
-            employee = employeeRepo.findById(
-                    request.getEmployee_Id()
-            ).orElseThrow(() ->
-                    new RuntimeException("Employee not found")
-            );
-        }
-
         // Convert DTO to Entity
         salaryStructureModel model =
                 salaryStructureToEntityMapper.toEntity(
-                        request, branch, employee
+                        request, branch
                 );
 
         // Save entity
@@ -81,20 +67,12 @@ public class salaryStructureServiceImpl implements salaryStructureService {
 
 
 
-        List<salaryStructureModel> allSalaryStructures=salaryStructureRepository.findAll().
-                stream().filter(
-                        salaryStructureModel ->
-                                salaryStructureModel.getBranch_Id() != null
-                                        &&
-                                salaryStructureModel.getBranch_Id().equals(branchId)
-                )
+        branchRepo.findById(branchId).orElseThrow(() ->
+                new RuntimeException("Branch not found with ID: " + branchId));
+        return salaryStructureRepository.findByBranchId(branchId)
+                .stream()
+                .map(salaryStructureToDtoMapper::toDto)
                 .toList();
-
- return allSalaryStructures.
-         stream().
-         map(salaryStructureToDtoMapper::toDto)
-         .toList();
-
 
     }
 
@@ -120,6 +98,9 @@ public class salaryStructureServiceImpl implements salaryStructureService {
     public salaryStructureResponseDto updateSalaryStructure(
             Long id,
             salaryStructureRequestDto request) {
+        if (request == null) {
+            throw new RuntimeException("Request cannot be null");
+        }
 
         salaryStructureModel model =
                 salaryStructureRepository.findById(id)
@@ -129,14 +110,19 @@ public class salaryStructureServiceImpl implements salaryStructureService {
                                 )
                         );
 
-        // Update entity using mapper
-        salaryStructureModel updatedModel =
-                salaryStructureToUpdateEntityMapper.toUpdateEntity(
-                        model, request);
+        salaryStructureToUpdateEntityMapper.toUpdateEntity(model, request);
+        if (request != null && request.getBranch_Id() != null
+                && (model.getBranch_Id() == null
+                || !request.getBranch_Id().equals(model.getBranch_Id().getBranch_Id()))) {
+            branchModel branch = branchRepo.findById(request.getBranch_Id())
+                    .orElseThrow(() ->
+                            new RuntimeException("Branch not found with ID: " + request.getBranch_Id()));
+            model.setBranch_Id(branch);
+        }
 
         // Save updated entity
         salaryStructureModel savedModel =
-                salaryStructureRepository.save(updatedModel);
+                salaryStructureRepository.save(model);
 
         // Convert entity to response DTO
         return salaryStructureToDtoMapper.toDto(savedModel);

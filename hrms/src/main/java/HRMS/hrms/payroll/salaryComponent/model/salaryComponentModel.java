@@ -21,7 +21,7 @@ public class salaryComponentModel {
     private String salaryComponent_Code;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="branch_id")
+    @JoinColumn(name="branch_id", nullable = false)
     private branchModel branch_Id;
 
     @Column(nullable = false)

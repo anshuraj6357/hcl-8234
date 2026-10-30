@@ -3,7 +3,6 @@ package HRMS.hrms.assets.asset.service;
 import java.util.List;
 
 import HRMS.hrms.organisation.location.Repository.locationRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,31 +20,42 @@ import HRMS.hrms.assets.assestMaster.repository.assetMasterRepository;
 import HRMS.hrms.organisation.location.model.locationModel;
 
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class assetServiceImpl implements assetService {
 
-    @Autowired
-    private  assetRepository assetRepository;
-    private  assetMasterRepository assetMasterRepository;
-    private locationRepo locationRepository;
+    private final assetRepository assetRepository;
+    private final assetMasterRepository assetMasterRepository;
+    private final locationRepo locationRepository;
+    private final assetToEntityMapper assetToEntityMapper;
+    private final assetToDtoMapper assetToDtoMapper;
+    private final assetToUpdateMapper assetToUpdateMapper;
 
-    private  assetToEntityMapper assetToEntityMapper;
-    private  assetToDtoMapper assetToDtoMapper;
-    private  assetToUpdateMapper assetToUpdateMapper;
+    public assetServiceImpl(
+            assetRepository assetRepository,
+            assetMasterRepository assetMasterRepository,
+            locationRepo locationRepository,
+            assetToEntityMapper assetToEntityMapper,
+            assetToDtoMapper assetToDtoMapper,
+            assetToUpdateMapper assetToUpdateMapper) {
+        this.assetRepository = assetRepository;
+        this.assetMasterRepository = assetMasterRepository;
+        this.locationRepository = locationRepository;
+        this.assetToEntityMapper = assetToEntityMapper;
+        this.assetToDtoMapper = assetToDtoMapper;
+        this.assetToUpdateMapper = assetToUpdateMapper;
+    }
 
     @Override
     public assetToResponseDto createAsset(assetToRequestDto request) {
 
-        if (assetRepository.existsByAsset_Code(request.getAsset_Code())) {
+        if (assetRepository.existsByAssetCode(request.getAsset_Code())) {
             throw new IllegalArgumentException("Asset code already exists");
         }
 
         if (request.getAsset_SerialNumber() != null
-                && assetRepository.existsByAsset_SerialNumber(
+                && assetRepository.existsByAssetSerialNumber(
                 request.getAsset_SerialNumber())) {
             throw new IllegalArgumentException(
                     "Asset serial number already exists");
@@ -106,14 +116,15 @@ public class assetServiceImpl implements assetService {
 
         if (request.getAsset_Code() != null
                 && !request.getAsset_Code().equals(asset.getAsset_Code())
-                && assetRepository.existsByAsset_Code(request.getAsset_Code())) {
+                && assetRepository.existsByAssetCode(request.getAsset_Code())) {
             throw new IllegalArgumentException("Asset code already exists");
         }
+
 
         if (request.getAsset_SerialNumber() != null
                 && !request.getAsset_SerialNumber()
                 .equals(asset.getAsset_SerialNumber())
-                && assetRepository.existsByAsset_SerialNumber(
+                && assetRepository.existsByAssetSerialNumber(
                 request.getAsset_SerialNumber())) {
             throw new IllegalArgumentException(
                     "Asset serial number already exists");

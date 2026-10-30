@@ -2,6 +2,9 @@ package HRMS.hrms.assets.allocation.model;
 
 
 import HRMS.hrms.assets.asset.model.assetModel;
+import HRMS.hrms.auth.model.authModelUser;
+import HRMS.hrms.employee.model.employeeModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +29,13 @@ public class allocationModel {
     @Column(name = "employee_id", nullable = false)
     private Long employee_Id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id",
+            insertable = false, updatable = false,
+            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonIgnore
+    private employeeModel employee;
+
     @Column(nullable = false)
     private LocalDate allocation_Date;
 
@@ -40,7 +50,15 @@ public class allocationModel {
     private String allocation_Purpose;
 
     // Asset issue karne wale authorized user ki ID
+    @Column(name = "allocated_by")
     private Long allocated_By;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "allocated_by", referencedColumnName = "id",
+            insertable = false, updatable = false,
+            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonIgnore
+    private authModelUser allocatedByUser;
 
     @Column(length = 500)
     private String allocation_Remarks;

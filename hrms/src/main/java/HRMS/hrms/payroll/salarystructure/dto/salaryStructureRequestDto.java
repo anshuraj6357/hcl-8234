@@ -25,7 +25,5 @@ public class salaryStructureRequestDto {
 
     private Long branch_Id;
 
-    private Long employee_Id;
-
     private String salaryStructure_Description;
 }

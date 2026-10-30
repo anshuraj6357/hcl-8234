@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface departmentRepo extends JpaRepository<departmentModel, Long> {
+public interface departmentRepo extends JpaRepository<departmentModel, Integer> {
 
     @Query("SELECT d FROM departmentModel d WHERE d.company.company_Id = :companyId")
     List<departmentModel> findDepartmentsByCompanyId(

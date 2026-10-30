@@ -3,6 +3,7 @@ package HRMS.hrms.assets.assestMaster.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import HRMS.hrms.assets.assestMaster.dto.assetMasterRequestDto;
@@ -20,16 +21,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class assetMasterServiceImp implements assetMasterService {
 
-    private final assetMasterRepository assetMasterRepository;
-    private final assetMasterToEntityMapper assetMasterToEntityMapper;
-    private final assetMasterToDtoMapper assetMasterToDtoMapper;
-    private final assetMasterToUpdateMapper assetMasterToUpdateMapper;
+    @Autowired
+    private  assetMasterRepository assetMasterRepository;
+    @Autowired
+    private  assetMasterToEntityMapper assetMasterToEntityMapper;
+    @Autowired
+    private  assetMasterToDtoMapper assetMasterToDtoMapper;
+    @Autowired
+    private  assetMasterToUpdateMapper assetMasterToUpdateMapper;
 
     @Override
     public assetMasterResponseDto createAssetMaster(
             assetMasterRequestDto request) {
 
-        if (assetMasterRepository.existsByAssetMaster_Code(
+        if (assetMasterRepository.existsByAssetMasterCode(
                 request.getAssetMaster_Code())) {
             throw new IllegalArgumentException(
                     "Asset master code already exists");
@@ -79,7 +84,7 @@ public class assetMasterServiceImp implements assetMasterService {
 
         if (requestedCode != null
                 && !requestedCode.equals(existingAsset.getAssetMaster_Code())
-                && assetMasterRepository.existsByAssetMaster_Code(requestedCode)) {
+                && assetMasterRepository.existsByAssetMasterCode(requestedCode)) {
             throw new IllegalArgumentException(
                     "Asset master code already exists");
         }

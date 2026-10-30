@@ -19,10 +19,9 @@ public class employeeServiceImpl implements employeeService {
     private employeeMapper employeeMapper;
 
     public employeeDto createEmployee(employeeDto employee) {
-        // Implementation for creating an employee
         employeeModel newEmployee=employeeMapper.toEntity(employee);
-        employeeRepo.save(newEmployee);
-        return null;
+        employeeModel savedEmployee = employeeRepo.save(newEmployee);
+        return employeeMapper.toDto(savedEmployee);
     }
 
     public employeeDto getEmployeeById(Long id) throws employeeNotFound {
@@ -56,34 +55,20 @@ public class employeeServiceImpl implements employeeService {
         if (employee.isEmpty()) {
             throw new employeeNotFound("No employees found");
         }
-        if (employee != null) {
-            return employee.stream()
-                    .map(employeeMapper::toDto)
-                    .toList();
-        } else {
-            return null;
-        }
+        return employee.stream()
+                .map(employeeMapper::toDto)
+                .toList();
     }
 
     public List<employeeDto> getEmployeesByDepartment(String department) throws employeeNotFound {
-        // Implementation for getting employees by department
-        employeeModel employee =employeeRepo.findByDepartment(department).orElseThrow(() ->
-                new employeeNotFound("Employee not found with department: " + department));
-        if (employee != null) {
-            return List.of(employeeMapper.toDto(employee));
-        } else {
-            return List.of();
-        }
+        return employeeRepo.findByDepartment(department).stream()
+                .map(employeeMapper::toDto)
+                .toList();
     }
 
     public List<employeeDto> getEmployeesByDesignation(String designation) throws employeeNotFound {
-        // Implementation for getting employees by designation
-        employeeModel employee =employeeRepo.findByDesignation(designation).orElseThrow(() ->
-                new employeeNotFound("Employee not found with designation: " + designation));
-        if (employee != null) {
-            return List.of(employeeMapper.toDto(employee));
-        } else {
-            return null;
-        }
+        return employeeRepo.findByDesignation(designation).stream()
+                .map(employeeMapper::toDto)
+                .toList();
     }
 }

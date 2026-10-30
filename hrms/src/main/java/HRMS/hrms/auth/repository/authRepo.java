@@ -1,6 +1,6 @@
 package HRMS.hrms.auth.repository;
 
-import HRMS.hrms.auth.model.authModel;
+import HRMS.hrms.auth.model.authModelUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,9 +8,9 @@ import java.util.Optional;
 
 
 @Repository
-public interface authRepo extends JpaRepository<authModel,Integer>{
+public interface authRepo extends JpaRepository<authModelUser,Long>{
 
-    Optional<authModel> findByEmail(String email);
+    Optional<authModelUser> findByEmail(String email);
 
 
 }

@@ -4,14 +4,12 @@ package HRMS.hrms.payroll.salarystructure.mapper;
 import HRMS.hrms.payroll.salarystructure.model.salaryStructureModel;
 import HRMS.hrms.payroll.salarystructure.dto.salaryStructureRequestDto;
 import HRMS.hrms.organisation.branch.model.branchModel;
-import HRMS.hrms.employee.model.employeeModel;
 
 public class salaryStructureToEntityMapper {
 
     public static salaryStructureModel toEntity(
             salaryStructureRequestDto dto,
-            branchModel branch,
-            employeeModel employee) {
+            branchModel branch) {
 
         if (dto == null) {
             return null;

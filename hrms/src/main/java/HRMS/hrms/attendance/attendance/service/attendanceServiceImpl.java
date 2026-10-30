@@ -19,8 +19,11 @@ public class attendanceServiceImpl implements attendanceService {
 
     @Autowired
     private  attendanceRepository attendanceRepository;
+    @Autowired
     private  attendanceToEntityMapper entityMapper;
+    @Autowired
     private  attendanceToDtoMapper dtoMapper;
+    @Autowired
     private  attendanceToUpdateMapper updateMapper;
 
 

@@ -24,6 +24,7 @@ public class employeeMapper {
         dto.setDateOfBirth(employee.getDateOfBirth());
         dto.setDateOfJoining(employee.getDateOfJoining());
         dto.setEmploymentType(employee.getEmploymentType());
+        dto.setStatus(employee.getStatus());
         dto.setAddress(employee.getAddress());
         dto.setCity(employee.getCity());
         dto.setState(employee.getState());
@@ -52,6 +53,9 @@ public class employeeMapper {
         employee.setDateOfBirth(dto.getDateOfBirth());
         employee.setDateOfJoining(dto.getDateOfJoining());
         employee.setEmploymentType(dto.getEmploymentType());
+        if (dto.getStatus() != null) {
+            employee.setStatus(dto.getStatus());
+        }
         employee.setAddress(dto.getAddress());
         employee.setCity(dto.getCity());
         employee.setState(dto.getState());
@@ -106,6 +110,10 @@ public class employeeMapper {
 
         if (dto.getEmploymentType() != null) {
             employee.setEmploymentType(dto.getEmploymentType());
+        }
+
+        if (dto.getStatus() != null) {
+            employee.setStatus(dto.getStatus());
         }
 
         if (dto.getAddress() != null) {

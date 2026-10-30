@@ -2,6 +2,8 @@ package HRMS.hrms.assets.assestMaster.controller;
 
 import java.util.List;
 
+import HRMS.hrms.assets.assestMaster.service.assetMasterServiceImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class assetMaterController {
 
-    private final assetMasterService assetMasterService;
+    @Autowired
+    private  assetMasterServiceImp assetMasterService;
 
     // Create Asset Master
     @PostMapping

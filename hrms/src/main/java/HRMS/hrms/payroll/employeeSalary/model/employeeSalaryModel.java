@@ -1,7 +1,9 @@
 
 package HRMS.hrms.payroll.employeeSalary.model;
 
+import HRMS.hrms.employee.model.employeeModel;
 import HRMS.hrms.payroll.salarystructure.model.salaryStructureModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +20,15 @@ public class employeeSalaryModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employeeSalary_Id;
 
-    // Existing employeeModel se baad mein relation add kar sakte hain
-    @Column(nullable = false)
+    @Column(name = "employee_id", nullable = false)
     private Long employeeId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id",
+            insertable = false, updatable = false,
+            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonIgnore
+    private employeeModel employee;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "salary_structure_id", nullable = false)

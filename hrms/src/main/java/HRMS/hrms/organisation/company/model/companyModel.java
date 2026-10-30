@@ -3,6 +3,7 @@ package HRMS.hrms.organisation.company.model;
 
 import HRMS.hrms.organisation.location.model.locationModel;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,8 +24,7 @@ public class companyModel {
     private String company_Code;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id")
+    @OneToOne(mappedBy = "company_Id", cascade = CascadeType.ALL)
     private locationModel location_id;
 
     private String company_Email;
@@ -34,4 +34,6 @@ public class companyModel {
     @Column(nullable = false)
     private Boolean company_Active = true;
 
+    @Column(nullable = false)
+    private Boolean company_Verified = false;
 }

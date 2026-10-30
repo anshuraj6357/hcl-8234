@@ -1,8 +1,6 @@
 
 package HRMS.hrms.organisation.department.dto;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class departmentResponseDto {
 
-
+    private Integer department_Id;
 
     private String department_Name;
 
@@ -19,6 +17,5 @@ public class departmentResponseDto {
     private String department_Description;
 
     private Boolean department_Active;
-    @ManyToOne(fetch = FetchType.LAZY)
     private Long companyId;
 }

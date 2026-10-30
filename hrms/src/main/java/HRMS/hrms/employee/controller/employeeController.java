@@ -40,7 +40,7 @@ public class employeeController {
     @PatchMapping("/updateEmployee")
     public ResponseEntity<String> updateEmployee(
             @RequestParam Long id,
-             @RequestBody employeeDto dto)
+            @Valid @RequestBody employeeDto dto)
             throws employeeNotFound {
 
         employeeService.updateEmployee(id, dto);

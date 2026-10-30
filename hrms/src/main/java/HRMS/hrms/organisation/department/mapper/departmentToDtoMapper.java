@@ -14,7 +14,7 @@ public class departmentToDtoMapper {
         departmentResponseDto response =
                 new departmentResponseDto();
 
-
+        response.setDepartment_Id(department.getDepartment_Id());
         response.setDepartment_Code(department.getDepartment_Code());
         response.setDepartment_Name(department.getDepartment_Name());
         response.setDepartment_Description(

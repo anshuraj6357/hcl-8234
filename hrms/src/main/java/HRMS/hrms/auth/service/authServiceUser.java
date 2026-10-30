@@ -1,21 +1,28 @@
 package HRMS.hrms.auth.service;
 
-import HRMS.hrms.auth.dto.authDto;
+import HRMS.hrms.auth.dto.authUserResponseDto;
+import HRMS.hrms.auth.dto.authUserRequestDto;
+import HRMS.hrms.auth.dto.loginDto;
+import HRMS.hrms.auth.dto.sendOtpdto;
+import HRMS.hrms.auth.enumRoles.roles;
 import HRMS.hrms.auth.exception.userNotCreated;
 import HRMS.hrms.auth.exception.userNotFOundException;
-import HRMS.hrms.auth.model.authModel;
+import HRMS.hrms.auth.model.authModelUser;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-public interface authService {
+public interface authServiceUser {
 
-    public authDto createUser(authModel user, HttpServletResponse response) throws userNotCreated;
+     authModelUser createUser(authModelUser user, HttpServletResponse response) throws userNotCreated;
 
-    public void deleteUser(Integer id);
-    public void updateUser(Integer id, authDto user);
+     void deleteUser(Long id);
+     void updateUser(Long id, authUserResponseDto user);
 
-    public authDto forgetPassword(String email);
-    public void login(authDto user);
-    public void sendOtp(String email);
-    public String validateOtp(String email,Long otp) throws userNotFOundException;
+     authUserResponseDto forgetPassword(String email);
+    authModelUser login(loginDto user, HttpServletResponse response);
+     void sendOtp(sendOtpdto email);
+     String validateOtp(String email,Long otp) throws userNotFOundException;
+//    void createUserUsingEmail(authUserRequestDto user,
+//                                             HttpServletResponse response,
+//                                             roles role ) throws userNotCreated;
 }

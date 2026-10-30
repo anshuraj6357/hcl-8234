@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class companyRequestDto {
 
+    private Long company_Id;
     private String company_Name;
     private String company_Code;
     private locationModel location_id;

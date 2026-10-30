@@ -1,6 +1,8 @@
 package HRMS.hrms.organisation.location.service;
 
 
+import HRMS.hrms.organisation.company.Repository.companyRepository;
+import HRMS.hrms.organisation.company.model.companyModel;
 import HRMS.hrms.organisation.location.Repository.locationRepo;
 import HRMS.hrms.organisation.location.dto.locationRequestDto;
 import HRMS.hrms.organisation.location.dto.locationResponseDto;
@@ -20,25 +22,42 @@ public class locationServiceImpl implements locationService {
 
     @Autowired
     private locationRepo locationRepo;
+    @Autowired
     private locationToDtoMapper locationToDtoMapper;
+    @Autowired
     private locationToEntityMapper locationToEntityMapper;
+    @Autowired
     private locationToUpdateMapper locationToUpdateMapper;
+    @Autowired
+    private companyRepository companyRepository;
 
-    public locationResponseDto createLocation(locationRequestDto location){
+
+    public locationModel createLocation(locationRequestDto location) throws RuntimeException{
+        if (location == null) {
+            throw new RuntimeException("Location request cannot be null");
+        }
+        if (location.getCompany_Id() == null) {
+            throw new RuntimeException("Company ID is required to create a location");
+        }
+
+        companyModel companyModel = companyRepository.findById(location.getCompany_Id())
+                .orElseThrow(() -> new RuntimeException("company Not created"));
+
         locationModel newLocation = locationToEntityMapper.ToEntity(location);
+        newLocation.setCompany_Id(companyModel);
 
-        return null;
+        return locationRepo.save(newLocation);
     }
-    public List<locationResponseDto> getAllLocationsByCompanyId(Long companyId){
-
-
-
-       List<locationModel>  allLocation=locationRepo.findAllByCompany_Id(companyId);
-
-       return allLocation.stream()
-               .map(locationToDtoMapper::toDto)
-               .toList();
-    }
+//    public List<locationResponseDto> getAllLocationsByCompanyId(Long companyId){
+//
+//
+//
+//       List<locationModel>  allLocation=locationRepo.findAllByCompany_Id(companyId);
+//
+//       return allLocation.stream()
+//               .map(locationToDtoMapper::toDto)
+//               .toList();
+//    }
     @Override
     public locationResponseDto getLocationById(Long locationId) {
 

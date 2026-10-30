@@ -1,5 +1,8 @@
 package HRMS.hrms.attendance.overTimerequest.model;
 
+import HRMS.hrms.auth.model.authModelUser;
+import HRMS.hrms.employee.model.employeeModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,8 +12,14 @@ import java.time.LocalTime;
 public class overTimeRequestModel {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(name = "employee_id", nullable = false)
     private Long employeeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id",
+        insertable = false, updatable = false,
+        foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonIgnore
+    private employeeModel employee;
     @Column(nullable = false)
     private LocalDate overtimeDate;
     @Column(nullable = false)
@@ -21,7 +30,14 @@ public class overTimeRequestModel {
     @Column(length = 1000)
     private String reason;
     private String status = "PENDING";
+    @Column(name = "reviewed_by")
     private Long reviewedBy;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reviewed_by", referencedColumnName = "id",
+        insertable = false, updatable = false,
+        foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JsonIgnore
+    private authModelUser reviewer;
     private String reviewRemarks;
 
     public overTimeRequestModel() {}

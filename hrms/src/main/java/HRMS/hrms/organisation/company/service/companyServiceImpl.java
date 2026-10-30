@@ -11,82 +11,55 @@ import HRMS.hrms.organisation.company.mapper.companyToUpdateMapper;
 import HRMS.hrms.organisation.company.model.companyModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class companyServiceImpl implements companyService {
 
     @Autowired
     private companyEntityMapper companyEntityMapper;
+    @Autowired
     private companyRepository companyRepository;
+    @Autowired
     private companyToDtoMapper companyToDtoMapper;
+    @Autowired
     private companyToUpdateMapper companyToUpdateMapper;
 
-    public companyResponseDto createCompany(companyRequestDto company)throws companyNotCreatedException {
 
 
-
-        try{
-
-            companyModel createCompany = companyEntityMapper.toEntity(company);
-
-            companyModel savedCompany=companyRepository.save(createCompany);
-
-            companyResponseDto companyResponseDto = companyToDtoMapper.toDto(savedCompany);
-
-            return companyResponseDto;
-        }
-        catch(companyNotCreatedException e){
-            throw new  companyNotCreatedException("due to internal server error ");
+    public companyModel createCompany(companyRequestDto company) throws companyNotCreatedException {
+        if (company == null) {
+            throw new companyNotCreatedException("Company request cannot be null");
         }
 
+        companyModel newCompany = companyEntityMapper.toEntity(company);
+        return companyRepository.save(newCompany);
     }
 
     @Override
-    public companyResponseDto getCompanyById(Integer id) {
-        return null;
-    }
-
-    @Override
-    public companyResponseDto updateCompany(Integer id, companyRequestDto company) {
-        return null;
-    }
-
-    @Override
-    public void deleteCompany(Integer id) {
-
-    }
-
-
-    //    public List<companyResponseDto> getAllCompanies(){
-//
-//        return null;
-//    }
-    public  companyResponseDto getCompanyById(Long id){
+    @Transactional(readOnly = true)
+    public companyResponseDto getCompanyById(Long id) {
         companyModel company = companyRepository.findById(id).orElseThrow(()->
                 new companyNotFoundException("Company Not Found With This Exception "));
-        companyResponseDto getCompanyById = companyToDtoMapper.toDto(company);
-        return getCompanyById;
+        return companyToDtoMapper.toDto(company);
     }
-    public companyResponseDto updateCompany(Long id, companyRequestDto company){
 
-        companyModel existingCompany=companyRepository.findById(id).orElseThrow(()->
+    @Override
+    @Transactional
+    public companyResponseDto updateCompany(Long id, companyRequestDto company) {
+        if (company == null) {
+            throw new companyNotCreatedException("Company request cannot be null");
+        }
+        companyModel existingCompany = companyRepository.findById(id).orElseThrow(()->
                 new companyNotFoundException("Company Not Found With This Exception "));
-        companyModel companyModel=companyToUpdateMapper.toUpdateCompany(company,existingCompany);
-
-        companyResponseDto companyResponseDto = companyToDtoMapper.toDto(companyModel);
-
-        return companyResponseDto;
+        companyToUpdateMapper.toUpdateCompany(company, existingCompany);
+        return companyToDtoMapper.toDto(companyRepository.save(existingCompany));
     }
 
-    public void deleteCompany(Long id)throws companyNotFoundException{
-        companyModel company =companyRepository.findById(id).orElseThrow(()->
-         new companyNotFoundException("Company Not Found With this is ")
-                );
+    @Override
+    public void deleteCompany(Long id) throws companyNotFoundException {
+        companyModel company = companyRepository.findById(id).orElseThrow(()->
+                new companyNotFoundException("Company not found with ID: " + id));
         companyRepository.delete(company);
     }
-//    public  List<companyResponseDto> searchCompanyByName(String name){
-//        return null;
-//    }
 }

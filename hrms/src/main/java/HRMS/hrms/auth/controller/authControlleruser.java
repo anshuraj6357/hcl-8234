@@ -1,62 +1,88 @@
 package HRMS.hrms.auth.controller;
 
 
-import HRMS.hrms.auth.dto.authDto;
-import HRMS.hrms.auth.dto.sendOtp;
-import HRMS.hrms.auth.model.authModel;
-import HRMS.hrms.auth.dto.validateOtpModel;
-import HRMS.hrms.auth.service.authService;
+import HRMS.hrms.auth.dto.*;
+import HRMS.hrms.auth.model.authModelUser;
+import HRMS.hrms.auth.service.authServiceUser;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping("/api/auth")
-public class authController {
+@RequestMapping("/api/v1/auth")
+public class authControlleruser {
 
     @Autowired
-    private authService userService;
+    private authServiceUser userService;
+
 
     @PostMapping("/createUser")
     public ResponseEntity<String> createUser(
-            @RequestBody authModel userModel,
+            @RequestBody authModelUser userModel,
             HttpServletResponse response) throws Exception {
         userService.createUser(userModel,response);
-        return ResponseEntity.ok("User created successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
     }
+
+
+//    @PostMapping("/createUserusingEmail/{role}")
+//    public ResponseEntity<String> createUserUsingEmail(
+//            @RequestBody authUserRequestDto userModel,
+//            HttpServletResponse response,
+//            @PathVariable("role") roles role
+//    ) throws userNotCreated {
+//
+//        userService.createUserUsingEmail(userModel, response, role);
+//
+//        return ResponseEntity
+//                .status(HttpStatus.CREATED)
+//                .body("User created successfully");
+//    }
+//
+
+
+
     @PostMapping("/sendOtp")
     public ResponseEntity<String> SendOtp(
-            @RequestBody sendOtp sp) throws Exception {
+            @RequestBody sendOtpdto otpdata) throws Exception {
+        System.out.println(otpdata.getRole());
+        System.out.println(otpdata.getEmail());
 
-        userService.sendOtp(sp.getEmail());
+        userService.sendOtp(otpdata);
 
         return ResponseEntity.ok("OTP sent successfully");
     }
 
     @PostMapping("/validateOtp")
-    public ResponseEntity<String> validateOtp(
-            @RequestBody validateOtpModel request) {
+    public ResponseEntity<Map<String,String>> validateOtp(
+            @RequestBody validateOtpDto request) {
 
         String result = userService.validateOtp(
                 request.getEmail(),
                 request.getOtp()
         );
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("message",result));
     }
 
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(
-            @RequestBody authDto user
+    public ResponseEntity<Map<String,authModelUser>> login(
+            @RequestBody loginDto user,
+            HttpServletResponse response
     ){
-        userService.login(user);
-        return ResponseEntity.ok("User successfully logged in");
+       authModelUser founduser= userService.login(user,response);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
+                "user",founduser
+        ));
     }
 
     @DeleteMapping("/Delete/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
 
         userService.deleteUser(id);
 

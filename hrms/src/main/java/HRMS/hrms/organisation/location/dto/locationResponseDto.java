@@ -1,6 +1,7 @@
 
 package HRMS.hrms.organisation.location.dto;
 
+import HRMS.hrms.organisation.company.model.companyModel;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;

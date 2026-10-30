@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public interface locationService {
 
-    locationResponseDto createLocation(locationRequestDto location);
+    locationModel createLocation(locationRequestDto location);
 
-    List<locationResponseDto> getAllLocationsByCompanyId(Long companyId);
+//    List<locationResponseDto> getAllLocationsByCompanyId(Long companyId);
 
     locationResponseDto getLocationById(Long locationId);
 

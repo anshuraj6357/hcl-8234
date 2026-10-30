@@ -1,11 +1,9 @@
 package HRMS.hrms.auth.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import HRMS.hrms.auth.enumRoles.roles;
+import HRMS.hrms.organisation.company.model.companyModel;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,21 +12,25 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class authModel {
+public class authModelUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @NotBlank(message="Password cannot be null")
-    @NotNull
-    private String password;
+    private Long id;
+    private String password="1234";
     @Email
-    @NotBlank(message="Email cannot be blank")
-    @NotNull
+    @NotNull(message = "Email cannot be null")
+    @Column(nullable = false, unique = true)
     private String email;
-    @NotBlank(message = "Role cannot be blank")
-    private String role;
-    @NotBlank(message = "Confirm Password cannot be blank")
-    private String confermPassword;
-    private Long otp;
+    @NotNull(message = "Role cannot be null")
+    @Enumerated(EnumType.STRING)
+    private roles role;
+    private Long otp=null;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private companyModel companyId;
+
+    private Long tokenCreatedAt;
+    private Long tokenExpiresIn;
 }

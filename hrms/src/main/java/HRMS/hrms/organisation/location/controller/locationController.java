@@ -8,6 +8,7 @@ import HRMS.hrms.organisation.location.mapper.locationToUpdateMapper;
 import HRMS.hrms.organisation.location.model.locationModel;
 import HRMS.hrms.organisation.location.service.locationService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,29 +19,23 @@ import java.util.List;
 @RequestMapping("/api/locations")
 public class locationController {
 
-    private final locationService locationService;
-    private final locationToEntityMapper locationToEntityMapper;
-    private final locationToDtoMapper locationToDtoMapper;
-    private final locationToUpdateMapper locationToUpdateMapper;
+    @Autowired
+    private  locationService locationService;
+    @Autowired
+    private  locationToEntityMapper locationToEntityMapper;
+    @Autowired
+    private  locationToDtoMapper locationToDtoMapper;
+    @Autowired
+    private  locationToUpdateMapper locationToUpdateMapper;
 
-    public locationController(
-            locationService locationService,
-            locationToEntityMapper locationToEntityMapper,
-            locationToDtoMapper locationToDtoMapper,
-            locationToUpdateMapper locationToUpdateMapper) {
 
-        this.locationService = locationService;
-        this.locationToEntityMapper = locationToEntityMapper;
-        this.locationToDtoMapper = locationToDtoMapper;
-        this.locationToUpdateMapper = locationToUpdateMapper;
-    }
 
     // Create Location
-    @PostMapping
-    public ResponseEntity<locationResponseDto> createLocation(
+    @PostMapping("/create")
+    public ResponseEntity<locationModel> createLocation(
             @RequestBody locationRequestDto request) {
 
-        locationResponseDto savedLocation =
+        locationModel savedLocation =
                 locationService.createLocation(request);
 
 
@@ -48,13 +43,13 @@ public class locationController {
     }
 
     // Get All Locations
-    @GetMapping("{companyId}")
-    public ResponseEntity<List<locationResponseDto>> getAllLocations(@PathVariable Long companyId) {
-
-        List<locationResponseDto> locations =
-                locationService.getAllLocationsByCompanyId(companyId);
-        return ResponseEntity.ok(locations);
-    }
+//    @GetMapping("{companyId}")
+//    public ResponseEntity<List<locationResponseDto>> getAllLocations(@PathVariable Long companyId) {
+//
+//        List<locationResponseDto> locations =
+//                locationService.getAllLocationsByCompanyId(companyId);
+//        return ResponseEntity.ok(locations);
+//    }
 
     // Get Location By ID
     @GetMapping("/{locationId}")

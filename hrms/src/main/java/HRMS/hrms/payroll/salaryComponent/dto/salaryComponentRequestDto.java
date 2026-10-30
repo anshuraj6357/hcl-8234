@@ -11,6 +11,7 @@ import HRMS.hrms.payroll.salaryComponent.enums.salaryComponentType;
 @Setter
 public class salaryComponentRequestDto {
 
+    private Long branchId;
     private String salaryComponent_Name;
     private salaryComponentType salaryComponent_Type;
     private Double salaryComponent_Value;
@@ -20,5 +21,4 @@ public class salaryComponentRequestDto {
 
 
 }
-
 

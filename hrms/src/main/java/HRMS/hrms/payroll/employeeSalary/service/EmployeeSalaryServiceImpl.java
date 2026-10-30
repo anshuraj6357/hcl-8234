@@ -24,8 +24,11 @@ public class EmployeeSalaryServiceImpl implements employeeSalaryService {
 
     @Autowired
     private  employeeSalaryToDtoMapper employeeSalarytoDtoMapper;
+    @Autowired
     private  employeeSalaryToEntityMapper employeeSalaryToEntityMapper;
+    @Autowired
     private  employeeSalaryRepository employeeSalaryRepository;
+    @Autowired
     private  salaryStructureRepository salaryStructureRepository;
 
 

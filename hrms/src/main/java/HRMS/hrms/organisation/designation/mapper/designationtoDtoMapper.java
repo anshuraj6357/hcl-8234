@@ -20,9 +20,9 @@ public class designationtoDtoMapper {
         );
         response.setDesignation_Active(designation.getDesignation_Active());
 
-        if (designation.getDepartment() != null) {
-           response.setDepartmentId(designation.getDesignation_Id());
-        }
+//        if (designation.getDepartment() != null) {
+//           response.setDepartmentId(designation.getDepartment().getDepartment_Id().longValue());
+//        }
 
         return response;
     }

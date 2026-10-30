@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "HRMS/hrms/assets")
+@Table(name = "assets")
 @Getter
 @Setter
 public class assetModel {

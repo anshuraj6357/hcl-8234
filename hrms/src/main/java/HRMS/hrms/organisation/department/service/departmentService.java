@@ -17,12 +17,12 @@ public interface departmentService {
 
     // Update department
     departmentResponseDto updateDepartment(
-            Long id,
+            Integer id,
             departmentRequestDto department
     );
 
     // Delete department
-    void deleteDepartment(Long id);
+    void deleteDepartment(Integer id);
 
     // Fetch all departments belonging to a company
     List<departmentResponseDto> getDepartmentsByCompanyId(Long companyId);

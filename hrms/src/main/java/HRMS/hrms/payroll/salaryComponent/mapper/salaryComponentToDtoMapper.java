@@ -14,6 +14,10 @@ public class salaryComponentToDtoMapper {
 
     public salaryComponentResponseDto toDto(salaryComponentModel salaryComponent){
         salaryComponentResponseDto salaryComponentModel = new salaryComponentResponseDto();
+        salaryComponentModel.setSalaryComponent_Id(salaryComponent.getSalaryComponent_Id());
+        if (salaryComponent.getBranch_Id() != null) {
+            salaryComponentModel.setBranchId(salaryComponent.getBranch_Id().getBranch_Id());
+        }
         salaryComponentModel.setSalaryComponent_Active(salaryComponent.getSalaryComponent_Active());
         salaryComponentModel.setSalaryComponent_Name(salaryComponent.getSalaryComponent_Name());
         salaryComponentModel.setSalaryComponent_Code(salaryComponent.getSalaryComponent_Code());

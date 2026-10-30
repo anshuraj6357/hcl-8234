@@ -10,6 +10,8 @@ import HRMS.hrms.payroll.salaryComponent.enums.salaryComponentType;
 @Setter
 public class salaryComponentResponseDto {
 
+    private Long salaryComponent_Id;
+    private Long branchId;
     private String salaryComponent_Name;
     private salaryComponentType salaryComponent_Type;
     private Double salaryComponent_Value;

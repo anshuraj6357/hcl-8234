@@ -57,6 +57,10 @@ public class employeeDto {
 //            message = "Invalid employment type")
     private String employmentType;
 
+    @Pattern(regexp = "ACTIVE|INACTIVE|ON_LEAVE|TERMINATED",
+            message = "Status must be ACTIVE, INACTIVE, ON_LEAVE or TERMINATED")
+    private String status;
+
 //    @NotBlank(message = "Address is mandatory")
     private String address;
 

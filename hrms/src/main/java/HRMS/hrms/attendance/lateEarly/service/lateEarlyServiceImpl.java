@@ -20,8 +20,11 @@ public class lateEarlyServiceImpl implements lateEarlyService {
 
     @Autowired
     private  lateEarlyRepository repository;
+    @Autowired
     private  lateEarlyToEntityMapper entityMapper;
+    @Autowired
     private  lateEarlyToUpdateMapper updateMapper;
+    @Autowired
     private  lateEarlyToDtoMapper dtoMapper;
 
 
